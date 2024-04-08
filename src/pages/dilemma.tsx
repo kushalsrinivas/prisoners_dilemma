@@ -52,25 +52,37 @@ function Dilemma() {
     const option = Math.floor(Math.random() * 2) === 1 ? "success" : "error";
     return option;
   };
+  const Reset = () => {
+    setBoxes([]);
+    setCurrentRound(0);
+    setFlag(false);
+  };
   return (
-    <div>
-      <input
-        type="number"
-        placeholder="Number of rounds"
-        className="input input-bordered w-full max-w-xs"
-        value={rounds}
-        onChange={(e) => {
-          const value = parseInt(e.target.value);
-          if (isNaN(value) || value < 3) {
-          } else {
-            setRounds(value);
-          }
-        }}
-      />
-      <button type="submit" className="btn btn-primary" onClick={GenBox}>
-        Start
-      </button>
-      <div className="card w-screen bg-base-100 shadow-xl">
+    <div className="h-screen">
+      <div className="flex flex-col justify-center m-10 gap-3 card bg-base-100 p-5">
+        <div className="grid grid-cols-2 w-full m-auto gap-3 ">
+          <button type="submit" className="btn  btn-primary" onClick={GenBox}>
+            Start
+          </button>
+          <button type="submit" className="btn  btn-secondary" onClick={Reset}>
+            Reset
+          </button>
+        </div>
+        <input
+          type="number"
+          placeholder="Number of rounds"
+          className="input input-bordered w-full max-w-xs"
+          value={rounds}
+          onChange={(e) => {
+            const value = parseInt(e.target.value);
+            if (isNaN(value) || value < 3 || value > 25) {
+            } else {
+              setRounds(value);
+            }
+          }}
+        />
+      </div>
+      <div className={`card w-[95%] m-auto ${flag && "bg-base-100"} shadow-xl`}>
         <div className="card-body w-full">
           <div className="flex flex-row gap-3 w-full">
             {boxes.map((temp, id) => {
@@ -84,31 +96,34 @@ function Dilemma() {
               );
             })}
           </div>
-
-          <div className="card-actions ">
-            <button
-              className="btn btn-success"
-              onClick={() => {
-                if (flag!) {
-                  changeColor("success", currentRound);
-                  setCurrentRound(currentRound + 1);
-                }
-              }}
-            >
-              coporate
-            </button>
-            <button
-              className="btn btn-error"
-              onClick={() => {
-                if (flag!) {
-                  changeColor("error", currentRound);
-                  setCurrentRound(currentRound + 1);
-                }
-              }}
-            >
-              Defect
-            </button>
-          </div>
+        </div>
+      </div>
+      <div
+        className={`card w-[95%] gap-3 m-auto bg-base-100 mt-10 shadow-xl  `}
+      >
+        <div className="grid grid-cols-2 card-body">
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              if (flag!) {
+                changeColor("success", currentRound);
+                setCurrentRound(currentRound + 1);
+              }
+            }}
+          >
+            coporate
+          </button>
+          <button
+            className="btn btn-error"
+            onClick={() => {
+              if (flag!) {
+                changeColor("error", currentRound);
+                setCurrentRound(currentRound + 1);
+              }
+            }}
+          >
+            Defect
+          </button>
         </div>
       </div>
     </div>
