@@ -15,6 +15,7 @@ function Dilemma() {
   const [rounds, setRounds] = useState(3);
   const [currentRound, setCurrentRound] = useState(0);
   const [boxes, setBoxes] = useState<Box[]>([]);
+  const [flag, setFlag] = useState(false);
   const changeColor = (option: string, index: number) => {
     const updatedBoxes = boxes.map((box, index) => {
       if (currentRound === index) {
@@ -28,6 +29,7 @@ function Dilemma() {
     setBoxes(updatedBoxes);
   };
   const GenBox = () => {
+    setFlag(true);
     console.log(boxes);
     const newBoxes: Box[] = [];
     for (let i = 0; i < rounds; i++) {
@@ -87,8 +89,10 @@ function Dilemma() {
             <button
               className="btn btn-success"
               onClick={() => {
-                changeColor("success", currentRound);
-                setCurrentRound(currentRound + 1);
+                if (flag!) {
+                  changeColor("success", currentRound);
+                  setCurrentRound(currentRound + 1);
+                }
               }}
             >
               coporate
@@ -96,8 +100,10 @@ function Dilemma() {
             <button
               className="btn btn-error"
               onClick={() => {
-                changeColor("error", currentRound);
-                setCurrentRound(currentRound + 1);
+                if (flag!) {
+                  changeColor("error", currentRound);
+                  setCurrentRound(currentRound + 1);
+                }
               }}
             >
               Defect
