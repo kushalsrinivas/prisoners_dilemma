@@ -11,23 +11,31 @@ interface Box {
   user: User;
   opponent: Opponent;
 }
+interface Score {
+  user: number;
+  opponent: number;
+}
 function Dilemma() {
   const [rounds, setRounds] = useState(3);
   const [currentRound, setCurrentRound] = useState(0);
   const [boxes, setBoxes] = useState<Box[]>([]);
   const [flag, setFlag] = useState(false);
+  const [score, setScore] = useState<Score>();
   const changeColor = (option: string, index: number) => {
-    const updatedBoxes = boxes.map((box, index) => {
-      if (currentRound === index) {
-        const updatedBox = { ...box };
-        updatedBox.user.option = option;
-        updatedBox.opponent.option = getRandomOption();
-        return updatedBox;
-      }
-      return box;
-    });
-    setBoxes(updatedBoxes);
+    if (currentRound < rounds) {
+      const updatedBoxes = boxes.map((box, index) => {
+        if (currentRound === index) {
+          const updatedBox = { ...box };
+          updatedBox.user.option = option;
+          updatedBox.opponent.option = getRandomOption();
+          return updatedBox;
+        }
+        return box;
+      });
+      setBoxes(updatedBoxes);
+    }
   };
+
   const GenBox = () => {
     setFlag(true);
     console.log(boxes);
@@ -52,14 +60,17 @@ function Dilemma() {
     const option = Math.floor(Math.random() * 2) === 1 ? "success" : "error";
     return option;
   };
+
   const Reset = () => {
     setBoxes([]);
     setCurrentRound(0);
     setFlag(false);
   };
+
+  const counter = () => {};
   return (
     <div className="h-screen">
-      <div className="flex flex-col justify-center m-10 gap-3 card bg-base-100 p-5">
+      <div className="flex flex-col justify-center m-10 gap-3 card shadow-xl bg-base-200 p-5">
         <div className="grid grid-cols-2 w-full m-auto gap-3 ">
           <button type="submit" className="btn  btn-primary" onClick={GenBox}>
             Start
@@ -82,7 +93,11 @@ function Dilemma() {
           }}
         />
       </div>
-      <div className={`card w-[95%] m-auto ${flag && "bg-base-100"} shadow-xl`}>
+      <div
+        className={`card w-[95%] m-auto ${
+          !flag && "opacity-0"
+        }  bg-base-100 shadow-xl`}
+      >
         <div className="card-body w-full">
           <div className="flex flex-row gap-3 w-full">
             {boxes.map((temp, id) => {
@@ -97,6 +112,9 @@ function Dilemma() {
             })}
           </div>
         </div>
+      </div>
+      <div className="">
+
       </div>
       <div
         className={`card w-[95%] gap-3 m-auto bg-base-100 mt-10 shadow-xl  `}

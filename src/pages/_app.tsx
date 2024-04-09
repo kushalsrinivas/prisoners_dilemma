@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div>
+    <div className="bg-base-300">
       <div className="flex justify-center">
         <ul className="menu menu-vertical lg:menu-horizontal bg-base-200 rounded-box">
           <li>
