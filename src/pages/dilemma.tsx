@@ -20,7 +20,7 @@ function Dilemma() {
   const [currentRound, setCurrentRound] = useState(0);
   const [boxes, setBoxes] = useState<Box[]>([]);
   const [flag, setFlag] = useState(false);
-  const [score, setScore] = useState<Score>();
+  const [score, setScore] = useState<Score>({ user: 0, opponent: 0 });
   const changeColor = (option: string, index: number) => {
     if (currentRound < rounds) {
       const updatedBoxes = boxes.map((box, index) => {
@@ -67,9 +67,16 @@ function Dilemma() {
     setFlag(false);
   };
 
-  const counter = () => {};
+  const counter = () => {
+    if (
+      boxes[currentRound].user.option === "error" &&
+      boxes[currentRound].opponent.option === "success"
+    ) {
+      setScore({ user: score.user + 1, opponent: 0 });
+    }
+  };
   return (
-    <div className="h-screen">
+    <div className="h-auto p-10">
       <div className="flex flex-col justify-center m-10 gap-3 card shadow-xl bg-base-200 p-5">
         <div className="grid grid-cols-2 w-full m-auto gap-3 ">
           <button type="submit" className="btn  btn-primary" onClick={GenBox}>
@@ -93,8 +100,26 @@ function Dilemma() {
           }}
         />
       </div>
+      <div className="card w-[95%] m-auto bg-base-100 mt-10">
+        <div className="card-body">
+          <div className="card grid grid-cols-2 gap-5 ">
+            <div className="card bg-base-300">
+              <div className="card-body">
+                <h1 className="font-black text-4xl">player 1</h1>
+                <div className="font-bold text-5xl">{score.user}</div>
+              </div>
+            </div>
+            <div className="card bg-base-300">
+              <div className="card-body">
+                <h1 className="font-black text-4xl">player 2</h1>
+                <div className="font-bold text-5xl">00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
-        className={`card w-[95%] m-auto ${
+        className={`card w-[95%] m-auto mt-10 ${
           !flag && "opacity-0"
         }  bg-base-100 shadow-xl`}
       >
@@ -113,9 +138,7 @@ function Dilemma() {
           </div>
         </div>
       </div>
-      <div className="">
 
-      </div>
       <div
         className={`card w-[95%] gap-3 m-auto bg-base-100 mt-10 shadow-xl  `}
       >
@@ -126,6 +149,7 @@ function Dilemma() {
               if (flag!) {
                 changeColor("success", currentRound);
                 setCurrentRound(currentRound + 1);
+                counter();
               }
             }}
           >
