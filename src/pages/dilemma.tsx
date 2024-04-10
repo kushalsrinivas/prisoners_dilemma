@@ -120,7 +120,7 @@ function Dilemma() {
           value={rounds}
           onChange={(e) => {
             const value = parseInt(e.target.value);
-            if (isNaN(value) || value < 3 || value > 25) {
+            if (isNaN(value) || value < 3 || value > 7) {
             } else {
               setRounds(value);
             }
@@ -132,14 +132,22 @@ function Dilemma() {
           <div className="card grid grid-cols-2 gap-5 ">
             <div className="card bg-base-300">
               <div className="card-body">
-                <h1 className="font-black text-4xl">player 1</h1>
-                <div className="font-bold text-5xl">{score.user}</div>
+                <h1 className="font-black lg:text-4xl text-2xl text-center">
+                  player 1
+                </h1>
+                <div className="font-bold lg:text-5xl text-6xl text-center">
+                  {score.user}
+                </div>
               </div>
             </div>
             <div className="card bg-base-300">
               <div className="card-body">
-                <h1 className="font-black text-4xl">player 2</h1>
-                <div className="font-bold text-5xl">{score.opponent}</div>
+                <h1 className="font-black lg:text-4xl text-2xl text-center">
+                  player 2
+                </h1>
+                <div className="font-bold lg:text-5xl text-6xl text-center">
+                  {score.opponent}
+                </div>
               </div>
             </div>
           </div>
