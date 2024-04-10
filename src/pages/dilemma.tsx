@@ -65,6 +65,7 @@ function Dilemma() {
     setBoxes([]);
     setCurrentRound(0);
     setFlag(false);
+    setScore({ user: 0, opponent: 0 });
   };
 
   useEffect(() => {
