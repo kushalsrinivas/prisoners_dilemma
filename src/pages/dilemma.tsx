@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 interface User {
   index: Number;
   option: string;
@@ -67,12 +67,38 @@ function Dilemma() {
     setFlag(false);
   };
 
+  useEffect(() => {
+    counter();
+  }, [currentRound]);
+
   const counter = () => {
-    if (
-      boxes[currentRound].user.option === "error" &&
-      boxes[currentRound].opponent.option === "success"
-    ) {
-      setScore({ user: score.user + 1, opponent: 0 });
+    if (boxes.length > 0) {
+      if (
+        boxes[currentRound - 1].user.option === "error" &&
+        boxes[currentRound - 1].opponent.option === "success"
+      ) {
+        setScore({ user: score.user + 2, opponent: score.opponent });
+      }
+      if (
+        boxes[currentRound - 1].user.option === "success" &&
+        boxes[currentRound - 1].opponent.option === "success"
+      ) {
+        setScore({ user: score.user + 3, opponent: score.opponent + 3 });
+      }
+      if (
+        boxes[currentRound - 1].user.option === "success" &&
+        boxes[currentRound - 1].opponent.option === "error"
+      ) {
+        setScore({ user: score.user, opponent: score.opponent + 2 });
+      }
+      if (
+        boxes[currentRound - 1].user.option === "error" &&
+        boxes[currentRound - 1].opponent.option === "error"
+      ) {
+        setScore({ user: score.user + 0, opponent: score.opponent + 0 });
+      }
+
+      console.log(score);
     }
   };
   return (
@@ -112,7 +138,7 @@ function Dilemma() {
             <div className="card bg-base-300">
               <div className="card-body">
                 <h1 className="font-black text-4xl">player 2</h1>
-                <div className="font-bold text-5xl">00</div>
+                <div className="font-bold text-5xl">{score.opponent}</div>
               </div>
             </div>
           </div>
@@ -149,7 +175,6 @@ function Dilemma() {
               if (flag!) {
                 changeColor("success", currentRound);
                 setCurrentRound(currentRound + 1);
-                counter();
               }
             }}
           >
