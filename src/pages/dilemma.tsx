@@ -73,7 +73,7 @@ function Dilemma() {
   }, [currentRound]);
 
   const counter = () => {
-    if (boxes.length > 0) {
+    if (boxes.length > 0 && currentRound <= boxes.length) {
       if (
         boxes[currentRound - 1].user.option === "error" &&
         boxes[currentRound - 1].opponent.option === "success"
@@ -104,7 +104,7 @@ function Dilemma() {
   };
   return (
     <div className="h-auto p-10">
-      <div className="flex flex-col justify-center m-10 gap-3 card shadow-xl bg-base-200 p-5">
+      <div className="flex flex-col w-[95%] justify-center m-auto lg:items-start items-center mt-10 gap-3 card shadow-xl bg-base-200 p-5">
         <div className="grid grid-cols-2 w-full m-auto gap-3 ">
           <button type="submit" className="btn  btn-primary" onClick={GenBox}>
             Start
@@ -116,7 +116,7 @@ function Dilemma() {
         <input
           type="number"
           placeholder="Number of rounds"
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full lg:max-w-xs"
           value={rounds}
           onChange={(e) => {
             const value = parseInt(e.target.value);
