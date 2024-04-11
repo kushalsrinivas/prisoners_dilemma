@@ -109,39 +109,12 @@ export default function Home() {
   return (
     <main className={""}>
       <div className="h-auto p-10">
-        <div className="flex flex-col w-[95%] justify-center m-auto lg:items-start items-center mt-10 gap-3 card shadow-xl bg-base-200 p-5">
-          <div className="grid grid-cols-2 w-full m-auto gap-3 ">
-            <button type="submit" className="btn  btn-primary" onClick={GenBox}>
-              Start
-            </button>
-            <button
-              type="submit"
-              className="btn  btn-secondary"
-              onClick={Reset}
-            >
-              Reset
-            </button>
-          </div>
-          <input
-            type="number"
-            placeholder="Number of rounds"
-            className="input input-bordered w-full lg:max-w-xs"
-            value={rounds}
-            onChange={(e) => {
-              const value = parseInt(e.target.value);
-              if (isNaN(value) || value < 3 || value > 7) {
-              } else {
-                setRounds(value);
-              }
-            }}
-          />
-        </div>
         <div className="card w-[95%] m-auto bg-base-100 mt-10">
           <div className="card-body">
             <div className="card grid grid-cols-2 gap-5 ">
               <div className="card bg-base-300">
                 <div className="card-body">
-                  <h1 className="font-black lg:text-4xl text-2xl text-center">
+                  <h1 className="font-black lg:text-4xl text-xl text-center">
                     player 1
                   </h1>
                   <div className="font-bold lg:text-5xl text-6xl text-center">
@@ -151,7 +124,7 @@ export default function Home() {
               </div>
               <div className="card bg-base-300">
                 <div className="card-body">
-                  <h1 className="font-black lg:text-4xl text-2xl text-center">
+                  <h1 className="font-black lg:text-4xl text-xl text-center">
                     player 2
                   </h1>
                   <div className="font-bold lg:text-5xl text-6xl text-center">
@@ -162,26 +135,30 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div
-          className={`card w-[95%] m-auto mt-10 ${
-            !flag && "opacity-0"
-          }  bg-base-100 shadow-xl`}
-        >
-          <div className="card-body w-full">
-            <div className="flex flex-row gap-3 w-full">
-              {boxes.map((temp, id) => {
-                return (
-                  <div key={id} className="flex flex-col gap-3 w-full">
-                    <button
-                      className={`btn btn-${temp.opponent.option}`}
-                    ></button>
-                    <button className={`btn btn-${temp.user.option}`}></button>
-                  </div>
-                );
-              })}
+        {flag && (
+          <div
+            className={`card w-[95%] m-auto mt-10
+       
+           bg-base-100 shadow-xl`}
+          >
+            <div className="card-body w-full">
+              <div className="flex flex-row gap-3 w-full">
+                {boxes.map((temp, id) => {
+                  return (
+                    <div key={id} className="flex flex-col gap-3 w-full">
+                      <button
+                        className={`btn btn-${temp.opponent.option}`}
+                      ></button>
+                      <button
+                        className={`btn btn-${temp.user.option}`}
+                      ></button>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div
           className={`card w-[95%] gap-3 m-auto bg-base-100 mt-10 shadow-xl  `}
@@ -210,6 +187,33 @@ export default function Home() {
               Defect
             </button>
           </div>
+        </div>
+        <div className="flex flex-col w-[95%] justify-center m-auto lg:items-start items-center mt-10 gap-3 card shadow-xl bg-base-200 p-5">
+          <div className="grid grid-cols-2 w-full m-auto gap-3 ">
+            <button type="submit" className="btn  btn-primary" onClick={GenBox}>
+              Start
+            </button>
+            <button
+              type="submit"
+              className="btn  btn-secondary"
+              onClick={Reset}
+            >
+              Reset
+            </button>
+          </div>
+          <input
+            type="number"
+            placeholder="Number of rounds"
+            className="input input-bordered w-full lg:max-w-xs"
+            value={rounds}
+            onChange={(e) => {
+              const value = parseInt(e.target.value);
+              if (isNaN(value) || value < 3 || value > 7) {
+              } else {
+                setRounds(value);
+              }
+            }}
+          />
         </div>
       </div>
     </main>
